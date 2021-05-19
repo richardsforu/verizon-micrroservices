@@ -30,7 +30,7 @@ public class Sender {
 	
 	
 	@Bean
-	public void sendData() {
+	public void sendData() { // custom method name
 		
 		Map<String, Object> messages=new HashMap<>();
 		

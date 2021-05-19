@@ -1,28 +1,18 @@
-package com.cts.pss.entity;
+package com.cts.pss.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+public class SearchQuery {
 
-@Entity
-public class Flight {
-	@Id
-	@GeneratedValue
-	private int id;
-
-	private String flightNumber;
 	private String origin;
 	private String destination;
 	private LocalDate flightDate;
+	private LocalTime flightTime;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fareId")
-	private Fare fare;
+	private String flightNumber;
+
+	private int travellers;
 
 	public String getFlightNumber() {
 		return flightNumber;
@@ -56,20 +46,20 @@ public class Flight {
 		this.flightDate = flightDate;
 	}
 
-	public int getId() {
-		return id;
+	public LocalTime getFlightTime() {
+		return flightTime;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setFlightTime(LocalTime flightTime) {
+		this.flightTime = flightTime;
 	}
 
-	public Fare getFare() {
-		return fare;
+	public int getTravellers() {
+		return travellers;
 	}
 
-	public void setFare(Fare fare) {
-		this.fare = fare;
+	public void setTravellers(int travellers) {
+		this.travellers = travellers;
 	}
 
 }

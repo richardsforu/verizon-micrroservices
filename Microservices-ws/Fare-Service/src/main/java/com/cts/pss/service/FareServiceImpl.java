@@ -1,11 +1,13 @@
 package com.cts.pss.service;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cts.pss.dao.FlightDao;
 import com.cts.pss.entity.Fare;
 import com.cts.pss.entity.Flight;
-import com.cts.pss.entity.FlightDao;
 
 @Service
 public class FareServiceImpl implements FareService {
@@ -24,4 +26,9 @@ public class FareServiceImpl implements FareService {
 		
 		return flight.getFare();
 	}
+	
+	public Fare findByFlightNumberAndOriginAndDestinationAndFlightDate(String flightNumber,String origin,String destination,LocalDate flightDate) {
+		return flightDao.findByFlightNumberAndOriginAndDestinationAndFlightDate(flightNumber,origin, destination, flightDate).getFare();
+	}
+
 }
