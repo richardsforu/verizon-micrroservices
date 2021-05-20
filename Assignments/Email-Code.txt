@@ -1,0 +1,27 @@
+@RabbitListener(queues = "EmailQ")
+    public void processMessage(Map<String,Object> bookingRecord) {
+		
+        System.out.println("===========> Email-Service:: ****====**** <===========");
+		System.out.println(bookingRecord);
+		System.out.println("===========> Email-Service:: ****====**** <===========");
+       
+
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo("abc@gmail.com", "xyz@gmail.com", "to@gmail.com");
+        
+        String bookingId=(String)bookingRecord.get("BOOKING_ID");
+        String flightNumber=(String)bookingRecord.get("FLIGHT_NUMBER");
+        LocalDate flightDate=(LocalDate)bookingRecord.get("DATE");
+        String passengerName=(String)bookingRecord.get("NAME");
+        LocalTime time=(LocalTime)bookingRecord.get("TIME");
+        
+        
+        msg.setSubject("Flight Booking confirmation");
+        msg.setText("Dear "+passengerName+" You Flight Number "+flightNumber+" is confirmed on "+flightDate +" at "+time +" and your booking ID is "+bookingId);
+
+        javaMailSender.send(msg);
+		// Logic to send email ...
+		
+		// searchService.updateInventory((String)fare.get("FLIGHT_NUMBER"),(LocalDate)fare.get("FLIGHT_DATE"),(int)fare.get("NEW_INVENTORY"));
+       //call repository and update the fare for the given flight
+    }	

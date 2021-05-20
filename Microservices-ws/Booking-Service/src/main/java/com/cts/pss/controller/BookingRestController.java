@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.pss.entity.BookingRecord;
 import com.cts.pss.model.SearchQuery;
-import com.cts.pss.service.BookingServiceImpl;
+import com.cts.pss.service.BookingService;
 
 @RestController
 @CrossOrigin
@@ -19,7 +19,7 @@ import com.cts.pss.service.BookingServiceImpl;
 public class BookingRestController {
 	
 	@Autowired
-	private BookingServiceImpl bookingService;
+	private BookingService bookingService;
 	
 	@PostMapping
 	public BookingRecord book(@RequestBody SearchQuery query) {

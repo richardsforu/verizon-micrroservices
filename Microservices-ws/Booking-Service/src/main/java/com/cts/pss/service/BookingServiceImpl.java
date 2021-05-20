@@ -19,12 +19,11 @@ import com.cts.pss.entity.Flight;
 import com.cts.pss.model.SearchQuery;
 
 @Service
-public class BookingServiceImpl {
+public class BookingServiceImpl implements BookingService {
 
-	
 	@Autowired
 	private BookingDao bookingDao;
-	
+
 	@Autowired
 	private Sender sender;
 
@@ -41,6 +40,7 @@ public class BookingServiceImpl {
 	private String fareServiceUrl = "http://localhost:8081/api/fare";
 	private String searchServiceurl = "http://localhost:8082/api/search";
 
+	@Override
 	public BookingRecord bookFlight(SearchQuery query) {
 
 		BookingRecord bookingRecord = null;
@@ -56,12 +56,12 @@ public class BookingServiceImpl {
 		}
 
 		if (flight != null) {
-			bookingRecord = new BookingRecord(LocalDateTime.now(), flight.getFlightDate(), flight.getFlightTime(),flight.getFlightNumber(),
-					flight.getOrigin(), flight.getDestination(), "CONFIRMED", query.getPassenger(),
-					flight.getFlightInfo());
-			
-			bookingRecord.setFare(flight.getFare().getFare()*query.getTravellers());
-			
+			bookingRecord = new BookingRecord(LocalDateTime.now(), flight.getFlightDate(), flight.getFlightTime(),
+					flight.getFlightNumber(), flight.getOrigin(), flight.getDestination(), "CONFIRMED",
+					query.getPassenger(), flight.getFlightInfo());
+
+			bookingRecord.setFare(flight.getFare().getFare() * query.getTravellers());
+
 			if (query.getPassenger().getCoPassengers().size() == query.getTravellers() - 1) {
 				bookingDao.save(bookingRecord);
 			} else {
@@ -69,25 +69,32 @@ public class BookingServiceImpl {
 			}
 
 		}
-		
-		
-		
-		//Send Booking Information to Search Service
-		
-		Map<String, Object> bookingDetails=new HashMap<>();
+
+		// Send Booking Information to Search Service
+
+		Map<String, Object> bookingDetails = new HashMap<>();
 		bookingDetails.put("ID", flight.getId());
 		bookingDetails.put("BOOKED_SEATS", query.getTravellers());
-		
+
 		sender.sendBookingInfo(bookingDetails);
-		
 
 		return bookingRecord;
 	}
-	
+
+	@Override
 	public BookingRecord getBookingData(int id) {
 		return bookingDao.findById(id).orElse(null);
 	}
-	
-	
+
+	// update booking confirmation
+	@Override
+	public void updateBookingStatus(String status, int bookingId) {
+		System.out.println(">>>>>>> Bookiing-Service <<<<<<<<<");
+		System.out.println(">>>>>>> Changingv Confirmation status from CONFIRMED to " + status + "<<<<<<<");
+		BookingRecord br = bookingDao.findById(bookingId).orElse(null);
+		br.setStatus(status);
+		bookingDao.save(br);
+		System.out.println(">>>>>>> Booking Status is Updated <<<<<<<");
+	}
 
 }

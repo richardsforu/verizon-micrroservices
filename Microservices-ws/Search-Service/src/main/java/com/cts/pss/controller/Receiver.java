@@ -26,6 +26,10 @@ public class Receiver {
 	public void getInventoryDetails(Map<String, Object> bookingInfo) {
 		
 		System.out.println(">>>>>>>>>>>>>>> Upodating New Inventory <<<<<<<<<<<<<<");
+		System.out.println(">>>>>> SEARCH-SERVICE <<<<<<<<<");
+		System.out.println(">>>>>>> Flight ID: "+bookingInfo.get("ID"));
+		System.out.println(">>>>>>> Number of Seats Booked: "+bookingInfo.get("BOOKED_SEATS"));
+		System.out.println("--------------------------------------------------------------------------------");
 	
 		searchService.updateInventory((int)bookingInfo.get("ID"),(int) bookingInfo.get("BOOKED_SEATS"));
 		
