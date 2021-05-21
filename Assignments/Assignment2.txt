@@ -1,0 +1,8 @@
+1. Make correction of bug multiple times same booking id is checking in
+2. Show status of conformation is 'Checkd-In' after check in process is comopleted 
+
+3. Create a property discount=30% in fare-service.properties in git location. 
+Then display discounted price in tyhe web page  when requst sent to 8081
+
+4. Create a property coupon-code=HYD35OFF in book-service.properties file in git location
+    Then display coupon code on console while booking is going on with out restarting of book-service application

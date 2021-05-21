@@ -1,3 +1,6 @@
+@Autowired
+private JavaMailSender javaMailSender;
+
 @RabbitListener(queues = "EmailQ")
     public void processMessage(Map<String,Object> bookingRecord) {
 		
