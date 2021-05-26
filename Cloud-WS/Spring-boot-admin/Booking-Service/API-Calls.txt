@@ -1,0 +1,26 @@
+
+http://localhost:8083/api/book
+METHOD: POST
+
+{
+    "origin":"Delhi",
+    "destination":"Chennai",
+    "flightNumber":"SG-435",
+    "travellers":2,
+    "flightDate":"2021-05-26",
+    "passenger":{
+        "firstName":"Mahesh",
+        "lastName":"Dhoni",
+        "gender":"Male",
+        "emailAddress":"mahesh@abc.com",
+        "mobileNumber":8754321232,
+        "coPassengers":[
+            {
+                "firstName":"Mani",
+                "lastName":"Ratna",
+                 "gender":"Male"
+            }
+        ]
+
+    }
+}
